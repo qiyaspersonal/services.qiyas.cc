@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Services | Minimalist Solutions</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Configure Tailwind
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            black: "#000000",
+            white: "#FFFFFF",
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .transition-all {
+        transition-property: all;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        transition-duration: 150ms;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-white text-black">
+  <main class="min-h-screen">
+    <div class="container mx-auto px-4 py-12 md:py-20">
+      <header class="mb-12 md:mb-16">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Our Services</h1>
+        <p class="text-lg md:text-xl max-w-2xl">
+          We provide cutting-edge solutions tailored to your business needs. Explore our range of specialized services
+          below.
+        </p>
+      </header>
+
+      <div id="services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <!-- Services will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // JSON data for services
+    const servicesData = [
+      {
+        "id": "web-development",
+        "title": "Web Development",
+        "description": "Custom web solutions built with cutting-edge technologies. We create responsive, user-friendly websites and web applications tailored to your specific needs.",
+        "icon": "code"
+      },
+      {
+        "id": "ai-integration",
+        "title": "AI Integration Services",
+        "description": "Seamlessly integrate AI capabilities into your existing systems. Our AI solutions help automate processes, gain insights, and enhance decision-making.",
+        "icon": "brain"
+      },
+      {
+        "id": "chatbots",
+        "title": "Chatbots & Automation Tools",
+        "description": "Intelligent chatbots and automation tools that streamline customer interactions and internal processes. Our multi-chat tools connect with various platforms.",
+        "icon": "message-square"
+      },
+      {
+        "id": "management-tools",
+        "title": "Management Tools",
+        "description": "Comprehensive management solutions for businesses of all sizes. Our tools help you track performance, manage resources, and optimize operations.",
+        "icon": "bar-chart"
+      }
+    ];
+
+    // Icons mapping (simple SVG icons)
+    const icons = {
+      "code": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>`,
+      "brain": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"></path><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"></path></svg>`,
+      "message-square": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>`,
+      "bar-chart": `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6 text-white"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>`
+    };
+
+    // Function to render services
+    function renderServices() {
+      const container = document.getElementById('services-container');
+      
+      servicesData.forEach((service, index) => {
+        // Create service card with animation delay based on index
+        const card = document.createElement('div');
+        card.className = 'bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 opacity-0';
+        card.style.animation = `fadeIn 0.5s ease-out ${index * 0.2}s forwards`;
+        
+        card.innerHTML = `
+          <div class="mb-4 p-3 inline-block bg-black rounded-full">
+            ${icons[service.icon]}
+          </div>
+          <h2 class="text-xl font-bold mb-3">${service.title}</h2>
+          <p class="text-gray-700">${service.description}</p>
+          <div class="mt-4 pt-4 border-t border-gray-100">
+            <button class="text-black font-medium flex items-center hover:underline">
+              Learn more
+              <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
+          </div>
+        `;
+        
+        container.appendChild(card);
+      });
+    }
+
+    // Add CSS animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', renderServices);
+  </script>
+</body>
+</html>
